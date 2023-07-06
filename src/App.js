@@ -1,5 +1,7 @@
 import { CARD_MAP, shuffle } from "./constants";
 import { useState } from "react";
+import Deck from "./Deck";
+import Hand from "./Hand";
 
 export default function App() {
   const [cards, setCards] = useState(CARD_MAP.slice());
@@ -19,6 +21,8 @@ export default function App() {
     setHand([]);
   }
 
+  function handleFlipTopCard() {}
+
   return (
     <div>
       <Deck
@@ -27,31 +31,6 @@ export default function App() {
         onShuffle={handleShuffle}
       />
       <Hand cards={hand} />
-    </div>
-  );
-}
-
-function Card({ card }) {
-  return <div className={`card ${card.suit}`}>{card.icon}</div>;
-}
-
-function Deck({ cards, onDrawCard, onShuffle }) {
-  const cardsInDeck = cards.length;
-  return (
-    <div className="deck">
-      <h3 onClick={onDrawCard}>🎴</h3>
-      <p>Cards Left: {cardsInDeck}</p>
-      <button onClick={onShuffle}>Shuffle</button>
-    </div>
-  );
-}
-
-function Hand({ cards }) {
-  return (
-    <div className="hand">
-      {cards.map((c) => (
-        <Card card={c} key={c.name} />
-      ))}
     </div>
   );
 }

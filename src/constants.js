@@ -66,7 +66,12 @@ export const _CARD_MAP = Object.freeze({
   DIAMOND_13: "🃎",
 });
 
-export const CARD_BACK = "🂠";
+export const CARD_BACK = {
+  name: "CARD_BACK",
+  icon: "🂠",
+  suit: "SPADE",
+  value: null,
+};
 
 export const CARD_MAP = Object.entries(_CARD_MAP).map((card) => ({
   name: card[0],

@@ -139,6 +139,9 @@ body {
   list-style: none;
   padding: 0.8rem 0;
   overflow: scroll;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
 }
 
 .list-watched {
@@ -148,12 +151,8 @@ body {
 .list li {
   position: relative;
   display: grid;
-  grid-template-columns: 4rem 1fr;
-  grid-template-rows: auto auto;
   column-gap: 2.4rem;
   font-size: 1.6rem;
-  align-items: center;
-
   padding: 1.6rem 3.2rem;
   border-bottom: 1px solid var(--color-background-100);
 }
@@ -391,8 +390,9 @@ input {
 
 .board {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
+  font-size: 175px;
 }
 
 .board div {
