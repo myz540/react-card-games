@@ -35,36 +35,38 @@ export const _CARD_MAP = Object.freeze({
   HEART_7: "🂷",
   DIAMOND_7: "🃇",
   // EIGHT
-  SPADE_8: "",
-  CLUB_8: "",
-  HEART_8: "",
-  DIAMOND_8: "",
+  SPADE_8: "🂨",
+  CLUB_8: "🃘",
+  HEART_8: "🂸",
+  DIAMOND_8: "🃈",
   // NINE
-  SPADE_9: "",
-  CLUB_9: "",
-  HEART_9: "",
-  DIAMOND_9: "",
+  SPADE_9: "🂩",
+  CLUB_9: "🃙",
+  HEART_9: "🂹",
+  DIAMOND_9: "🃉",
   // TEN
-  SPADE_10: "",
-  CLUB_10: "",
-  HEART_10: "",
-  DIAMOND_10: "",
+  SPADE_10: "🂪",
+  CLUB_10: "🃚",
+  HEART_10: "🂺",
+  DIAMOND_10: "🃊",
   // JACK
-  SPADE_11: "",
-  CLUB_11: "",
-  HEART_11: "",
-  DIAMOND_11: "",
+  SPADE_11: "🂫",
+  CLUB_11: "🃛",
+  HEART_11: "🂻",
+  DIAMOND_11: "🃋",
   // QUEEN
-  SPADE_12: "🂡",
-  CLUB_12: "🃑",
-  HEART_12: "🂱",
-  DIAMOND_12: "🃁",
+  SPADE_12: "🂭",
+  CLUB_12: "🃝",
+  HEART_12: "🂽",
+  DIAMOND_12: "🃍",
   // KING
-  SPADE_13: "🂡",
-  CLUB_13: "🃑",
-  HEART_13: "🂱",
-  DIAMOND_13: "🃁",
+  SPADE_13: "🂮",
+  CLUB_13: "🃞",
+  HEART_13: "🂾",
+  DIAMOND_13: "🃎",
 });
+
+export const CARD_BACK = "🂠";
 
 export const CARD_MAP = Object.entries(_CARD_MAP).map((card) => ({
   name: card[0],
