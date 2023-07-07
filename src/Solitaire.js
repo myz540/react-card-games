@@ -24,6 +24,7 @@ export default function App() {
   function handleShuffle() {
     console.log("Shuffling");
     setCards(shuffle(CARD_MAP.slice()));
+    setShownCard(null);
   }
 
   function updateDock(card) {}
