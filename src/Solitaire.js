@@ -38,16 +38,15 @@ export default function App() {
           onDrawCard={handleDrawCard}
           onShuffle={handleShuffle}
         />
-        <span
-          onDragStart={() => console.log("DragStart")}
-          onDrag={}
-        >
+        <span onDragStart={() => console.log("DragStart")}>
           {shownCard ? <Card card={shownCard} isDraggable={true} /> : ""}
         </span>
       </div>
       <div className="dock">
         <ul className="list">
-          {docks.map((suit) => <Dock suit={suit} />)}
+          {docks.map((suit) => (
+            <Dock suit={suit} />
+          ))}
         </ul>
       </div>
     </>
