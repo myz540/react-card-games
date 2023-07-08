@@ -5,11 +5,8 @@ import Card from "./Card";
 
 export default function App() {
   const [cards, setCards] = useState(CARD_MAP.slice());
-  const [spadeDock, setSpadeDock] = useState(null);
-  const [heartDock, setHeartDock] = useState(null);
-  const [diamondDock, setDiamondDock] = useState(null);
-  const [clubDock, setClubDock] = useState(null);
   const [shownCard, setShownCard] = useState(null);
+  const docks = ["DIAMOND", "SPADE", "HEART", "CLUB"];
 
   const topCard = cards[0];
 
@@ -27,7 +24,10 @@ export default function App() {
     setShownCard(null);
   }
 
-  function updateDock(card) {}
+  function onDragEnd(e) {
+    console.log(e.clientX);
+    console.log(e.clientY);
+  }
 
   return (
     <>
@@ -38,13 +38,16 @@ export default function App() {
           onDrawCard={handleDrawCard}
           onShuffle={handleShuffle}
         />
+        <span
+          onDragStart={() => console.log("DragStart")}
+          onDrag={}
+        >
+          {shownCard ? <Card card={shownCard} isDraggable={true} /> : ""}
+        </span>
       </div>
       <div className="dock">
         <ul className="list">
-          <Dock suit="SPADE" card={spadeDock} />
-          <Dock suit="HEART" card={heartDock} />
-          <Dock suit="CLUB" card={clubDock} />
-          <Dock suit="DIAMOND" card={diamondDock} />
+          {docks.map((suit) => <Dock suit={suit} />)}
         </ul>
       </div>
     </>
@@ -52,8 +55,11 @@ export default function App() {
 }
 
 function Dock({ suit, card }) {
+  const [cardHistory, setCardHistory] = useState([]);
+  const topCard = cardHistory ? cardHistory[-1] : null;
   return (
     <li className="list">
+      <p>{suit}</p>
       {card ? <Card card={card} /> : <Card card={CARD_BACK} />}
     </li>
   );

@@ -74,51 +74,6 @@ body {
 
 /* ******* */
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.logo span {
-  font-size: 3.2rem;
-}
-
-.logo h1 {
-  font-size: 2.4rem;
-  font-weight: 600;
-  color: #fff;
-}
-
-.search {
-  justify-self: center;
-  border: none;
-  padding: 1.1rem 1.6rem;
-  font-size: 1.8rem;
-  border-radius: 0.7rem;
-  width: 40rem;
-  transition: all 0.3s;
-  color: var(--color-text);
-
-  /* background-color: var(--color-background-900); */
-  background-color: var(--color-primary-light);
-}
-
-.search::placeholder {
-  color: var(--color-text-dark);
-}
-
-.search:focus {
-  outline: none;
-  box-shadow: 0 2.4rem 2.4rem rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px);
-}
-
-.num-results {
-  justify-self: end;
-  font-size: 1.8rem;
-}
-
 .btn-toggle {
   position: absolute;
   top: 0.8rem;
@@ -368,6 +323,7 @@ FONT SIZE SYSTEM (px)
 
 .deck {
   font-size: 20px;
+  background-color: #bbc2c9;
 }
 
 .deck h3 {
@@ -377,7 +333,7 @@ FONT SIZE SYSTEM (px)
 .deck button,
 select,
 input {
-  background-color: #ffebb3;
+  background-color: #9cad1f;
   color: #5a3e2b;
   font-family: inherit;
   border: none;
@@ -390,17 +346,18 @@ input {
 
 .board {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 3fr;
   gap: 20px;
   font-size: 175px;
+  background-color: #bbc2c9;
 }
 
 .board div {
-  border: 1px solid #e7e7e7;
-  background-color: #f7f7f7;
+  border: 2px solid #e7e7e7;
+
   border-radius: 2px;
   aspect-ratio: 2 / 1;
-  display: flex;
+  display: inline-block;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -414,4 +371,8 @@ input {
   gap: 1.2rem;
   justify-content: center;
   align-content: start;
+}
+
+.dock {
+  display: inline-block;
 }
