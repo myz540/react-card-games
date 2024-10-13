@@ -1,10 +1,6 @@
-export default function Card({
-  card,
-  isDraggable = false,
-  isDropZone = false,
-}) {
+export default function Card({ card, isSelected = false }) {
   return (
-    <div className={`card ${card.suit}`} draggable={isDraggable} >
+    <div className={`card ${card.suit} ${isSelected ? "selected" : ""}`}>
       {card.icon}
     </div>
   );
