@@ -209,3 +209,21 @@ input {
 .win-banner button:active {
   transform: scale(0.98);
 }
+
+.back-link {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  color: #9cad1f;
+  text-decoration: none;
+  font-size: 1.5rem; /* Increased from 1rem */
+  padding: 0.75rem 1.5rem; /* Increased from 0.5rem 1rem */
+  border: 3px solid #9cad1f; /* Increased from 2px */
+  border-radius: 7.5px; /* Increased from 5px */
+  transition: all 0.3s ease;
+}
+
+.back-link:hover {
+  background-color: #9cad1f;
+  color: #fff;
+}

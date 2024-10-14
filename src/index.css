@@ -1,0 +1,39 @@
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: var(--color-background-900);
+}
+
+.landing-page h1 {
+  color: #5a3e2b;
+  font-size: 4.5rem; /* Increased from 3rem */
+  margin-bottom: 3rem; /* Increased from 2rem */
+}
+
+.landing-page nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.landing-page nav ul li {
+  margin: 1.5rem 0; /* Increased from 1rem */
+}
+
+.landing-page nav ul li a {
+  color: #9cad1f;
+  text-decoration: none;
+  font-size: 2.25rem; /* Increased from 1.5rem */
+  padding: 0.75rem 1.5rem; /* Increased from 0.5rem 1rem */
+  border: 3px solid #9cad1f; /* Increased from 2px */
+  border-radius: 7.5px; /* Increased from 5px */
+  transition: all 0.3s ease;
+  display: inline-block; /* Added to ensure proper sizing */
+}
+
+.landing-page nav ul li a:hover {
+  background-color: #9cad1f;
+  color: #fff;
+}

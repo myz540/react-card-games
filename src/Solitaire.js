@@ -4,7 +4,9 @@ import Deck from "./Deck";
 import Card from "./Card";
 import Foundation from "./Foundation";
 import WinBanner from "./WinBanner";
-export default function App() {
+import { Link } from "react-router-dom";
+
+export default function Solitaire() {
   const [cards, setCards] = useState(CARD_MAP.slice());
   const [shownCard, setShownCard] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
@@ -147,6 +149,12 @@ export default function App() {
             onClick={() => handleFoundationClick(suit)}
           />
         ))}
+      </div>
+      <div className="solitaire-game">
+        <Link to="/" className="back-link">
+          Back to Home
+        </Link>
+        {/* ... existing Solitaire game JSX ... */}
       </div>
     </div>
   );
