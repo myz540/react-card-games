@@ -17,6 +17,7 @@ const LandingPage = () => {
   const handleLoginSuccess = async (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
     const { sub: googleId, name, email } = decoded;
+    console.log("Decoded:", decoded);
 
     try {
       let user = await getItem("Users", { id: googleId });
@@ -31,7 +32,7 @@ const LandingPage = () => {
         };
         await createItem("Users", user);
       }
-
+      console.log("User:", user);
       setUser(user);
       localStorage.setItem("user", JSON.stringify(user));
     } catch (error) {
