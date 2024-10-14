@@ -120,3 +120,65 @@ input {
   align-items: center;
   width: 150px;
 }
+
+.win-banner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(
+    187,
+    194,
+    201,
+    0.9
+  ); /* Using the existing background color with opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.win-banner {
+  background-color: var(--color-background-100);
+  border: 4px solid #9cad1f; /* Using the existing button color */
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  max-width: 80%;
+  width: 400px;
+}
+
+.win-banner h2 {
+  color: #5a3e2b; /* Using the existing text color */
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.win-banner p {
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #5a3e2b;
+}
+
+.win-banner button {
+  background-color: #9cad1f;
+  color: #5a3e2b;
+  font-family: inherit;
+  border: none;
+  border-radius: 10rem;
+  padding: 1.2rem 3.2rem;
+  font-weight: 700;
+  font-size: 2.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+.win-banner button:hover {
+  background-color: #b8cc24;
+}
+
+.win-banner button:active {
+  transform: scale(0.98);
+}

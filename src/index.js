@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
+import "./Solitaire.css";
 // import App from "./App";
 import App from "./Solitaire";
 
