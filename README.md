@@ -2,6 +2,56 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Claude prompts
+
+I started by building out the Solitaire game mostly by hand, and then using Claude / cursor to implement
+the final features like moving cards to the foundations and winning the game.
+
+Now, I would like to extend the application with the following features:
+
+1. Use react router to create a home page that has a link to the solitaire game and links to future games, all defined in this repository
+2. Implement the game of Durac by extending existing components and adding new components as needed
+3. I will define all the game states and rules to be implemented, as well as underlying data model
+4. I will use AWS DynamoDB to store game states and user information and feed that context to Claude
+
+# Data Model
+
+Mostly context specific for Durac but the Player class can easily be extended to other games.
+
+User (Use Google Auth IDP)
+
+- id
+- name
+- email
+- createdAt
+- updatedAt
+
+Game
+
+- id
+- users
+- gameType
+- gameState
+- inProgress
+
+GameState
+
+- id
+- player
+- deck
+- discardPile
+- createdAt
+- updatedAt
+- attackSlots
+- primaryAttacker
+- defender
+
+Player
+
+- id
+- userId
+- hand
+
 ## Available Scripts
 
 In the project directory, you can run:

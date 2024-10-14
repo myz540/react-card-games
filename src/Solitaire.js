@@ -1,10 +1,12 @@
-import { CARD_MAP, shuffle, CARD_BACK } from "./constants";
+import { CARD_MAP, shuffle } from "./constants";
 import { useState, useEffect } from "react";
 import Deck from "./Deck";
 import Card from "./Card";
 import Foundation from "./Foundation";
-
-export default function App() {
+import WinBanner from "./WinBanner";
+import { Link } from "react-router-dom";
+import "./Solitaire.css";
+export default function Solitaire() {
   const [cards, setCards] = useState(CARD_MAP.slice());
   const [shownCard, setShownCard] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
@@ -104,9 +106,9 @@ export default function App() {
       "8",
       "9",
       "10",
-      "J",
-      "Q",
-      "K",
+      "11",
+      "12",
+      "13",
     ];
     const topCardIndex = cardValues.indexOf(topCard.value);
     const currentCardIndex = cardValues.indexOf(card.value);
@@ -116,21 +118,27 @@ export default function App() {
 
   return (
     <div className="solitaire-game">
+      {isGameWon && <WinBanner onPlayAgain={handleShuffle} />}
       <div className="board">
-        <Deck
-          cards={cards}
-          shownCard={shownCard}
-          onDrawCard={handleDrawCard}
-          onShuffle={handleShuffle}
-        />
-        {shownCard && (
-          <div onClick={() => handleCardClick(shownCard)}>
-            <Card
-              card={shownCard}
-              isSelected={selectedCard && selectedCard.name === shownCard.name}
-            />
-          </div>
-        )}
+        <div className="deck">
+          <Deck
+            cards={cards}
+            onDrawCard={handleDrawCard}
+            onShuffle={handleShuffle}
+          />
+        </div>
+        <div className="shown-card">
+          {shownCard && (
+            <div onClick={() => handleCardClick(shownCard)}>
+              <Card
+                card={shownCard}
+                isSelected={
+                  selectedCard && selectedCard.name === shownCard.name
+                }
+              />
+            </div>
+          )}
+        </div>
       </div>
       <div className="foundations-row">
         {Object.entries(foundations).map(([suit, cards]) => (
@@ -141,6 +149,12 @@ export default function App() {
             onClick={() => handleFoundationClick(suit)}
           />
         ))}
+      </div>
+      <div className="solitaire-game">
+        <Link to="/" className="back-link">
+          Back to Home
+        </Link>
+        {/* ... existing Solitaire game JSX ... */}
       </div>
     </div>
   );
