@@ -9,3 +9,5 @@ const WinBanner = ({ onPlayAgain }) => {
     </div>
   );
 };
+
+export default WinBanner;
