@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Deck from "./Deck";
 import Card from "./Card";
 import Foundation from "./Foundation";
-
+import WinBanner from "./WinBanner";
 export default function App() {
   const [cards, setCards] = useState(CARD_MAP.slice());
   const [shownCard, setShownCard] = useState(null);
@@ -116,21 +116,27 @@ export default function App() {
 
   return (
     <div className="solitaire-game">
+      {isGameWon && <WinBanner onPlayAgain={handleShuffle} />}
       <div className="board">
-        <Deck
-          cards={cards}
-          shownCard={shownCard}
-          onDrawCard={handleDrawCard}
-          onShuffle={handleShuffle}
-        />
-        {shownCard && (
-          <div onClick={() => handleCardClick(shownCard)}>
-            <Card
-              card={shownCard}
-              isSelected={selectedCard && selectedCard.name === shownCard.name}
-            />
-          </div>
-        )}
+        <div className="deck">
+          <Deck
+            cards={cards}
+            onDrawCard={handleDrawCard}
+            onShuffle={handleShuffle}
+          />
+        </div>
+        <div className="shown-card">
+          {shownCard && (
+            <div onClick={() => handleCardClick(shownCard)}>
+              <Card
+                card={shownCard}
+                isSelected={
+                  selectedCard && selectedCard.name === shownCard.name
+                }
+              />
+            </div>
+          )}
+        </div>
       </div>
       <div className="foundations-row">
         {Object.entries(foundations).map(([suit, cards]) => (
