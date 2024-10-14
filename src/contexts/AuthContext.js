@@ -11,7 +11,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
+      console.log("Stored user found:", JSON.parse(storedUser));
       setUser(JSON.parse(storedUser));
+    } else {
+      console.log("No stored user found");
     }
     setLoading(false);
   }, []);
@@ -21,9 +24,12 @@ export const AuthProvider = ({ children }) => {
     const { sub: googleId, name, email } = decoded;
 
     try {
+      console.log("Attempting to get user from DynamoDB:", googleId);
       let user = await getItem("Users", { id: googleId });
+      console.log("User from DynamoDB:", user);
 
       if (!user) {
+        console.log("User not found. Creating new user.");
         user = {
           id: googleId,
           name,
@@ -31,20 +37,29 @@ export const AuthProvider = ({ children }) => {
           createdAt: new Date().toISOString(),
           updatedAt: new Date().toISOString(),
         };
+        console.log("New user object:", user);
         await createItem("Users", user);
+        console.log("New user created in DynamoDB");
       } else {
+        console.log("Existing user found. Updating lastLogin.");
         user.updatedAt = new Date().toISOString();
+        console.log("Updating user in DynamoDB:", user);
         await updateItem(
           "Users",
           { id: googleId },
           { updatedAt: user.updatedAt }
         );
+        console.log("User updated in DynamoDB");
       }
 
+      console.log("Setting user in state:", user);
       setUser(user);
+      console.log("Storing user in localStorage");
       localStorage.setItem("user", JSON.stringify(user));
+      console.log("Login process completed successfully");
     } catch (error) {
       console.error("Error during login:", error);
+      console.error("Error details:", error.message);
       throw error;
     }
   };
