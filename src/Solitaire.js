@@ -104,9 +104,9 @@ export default function App() {
       "8",
       "9",
       "10",
-      "J",
-      "Q",
-      "K",
+      "11",
+      "12",
+      "13",
     ];
     const topCardIndex = cardValues.indexOf(topCard.value);
     const currentCardIndex = cardValues.indexOf(card.value);
