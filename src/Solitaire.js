@@ -1,11 +1,11 @@
-import { CARD_MAP, shuffle, CARD_BACK } from "./constants";
+import { CARD_MAP, shuffle } from "./constants";
 import { useState, useEffect } from "react";
 import Deck from "./Deck";
 import Card from "./Card";
 import Foundation from "./Foundation";
 import WinBanner from "./WinBanner";
 import { Link } from "react-router-dom";
-
+import "./Solitaire.css";
 export default function Solitaire() {
   const [cards, setCards] = useState(CARD_MAP.slice());
   const [shownCard, setShownCard] = useState(null);
