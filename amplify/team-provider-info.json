@@ -17,6 +17,9 @@
           "appId": "d1vd662c9032mn",
           "type": "cicd"
         }
+      },
+      "auth": {
+        "reactcardgames2f2794e9": {}
       }
     }
   }

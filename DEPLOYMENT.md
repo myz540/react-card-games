@@ -23,19 +23,42 @@
 
 3. Set up hosting and connect your GitHub repository via the Amplify Console
 
-4. Add authentication to your Amplify project:
+4. Commit and push your changes to GitHub. Amplify will automatically start a new build.
+
+## Setting up Authentication with AWS Cognito and Google Sign-In
+
+1. Add authentication to your Amplify project:
 
    ```
    amplify add auth
    ```
 
-5. Push your changes to AWS:
+   Choose "Default configuration" and select your preferred sign-in method.
+
+2. Push the changes to AWS:
 
    ```
    amplify push
    ```
 
-6. Commit and push your changes to GitHub. Amplify will automatically start a new build.
+3. In the Amazon Cognito console:
+   a. Find your User Pool
+   b. Go to "Sign-in experience" and choose "Add identity provider"
+   c. Select "Google" and enter your Google Client ID and Secret
+   d. For "Authorized scopes", enter: `profile email openid`
+   e. Save your changes
+
+4. Update your app client:
+   a. In Cognito, go to "App integration" > "App client list"
+   b. Select the `clientWeb` app client
+   c. Under "Hosted UI", add Google as an identity provider
+   d. Add your app's domain to "Allowed callback URLs"
+
+5. In the Google Cloud Console:
+   a. Add your app's domain to "Authorized JavaScript origins"
+   b. Add your app's domain + '/callback' to "Authorized redirect URIs"
+
+[... keep any remaining relevant content ...]
 
 ## Setting up Google Authentication
 
