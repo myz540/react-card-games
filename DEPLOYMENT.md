@@ -98,3 +98,4 @@
 3. You can manually redeploy, view logs, and manage environment variables from here.
 
 Remember, with continuous deployment set up, pushing changes to your connected GitHub branch will automatically trigger a new build and deployment in Amplify.
+
