@@ -6,8 +6,9 @@ import Foundation from "./Foundation";
 import WinBanner from "./WinBanner";
 import { Link } from "react-router-dom";
 import "./Solitaire.css";
+
 export default function Solitaire() {
-  const [cards, setCards] = useState(CARD_MAP.slice());
+  const [cards, setCards] = useState(shuffle(CARD_MAP.slice()));
   const [shownCard, setShownCard] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
   const [foundations, setFoundations] = useState({
@@ -20,19 +21,19 @@ export default function Solitaire() {
   const [isGameWon, setIsGameWon] = useState(false);
 
   useEffect(() => {
-    checkWinCondition();
-  }, [foundations, cards]);
+    function checkWinCondition() {
+      const allFoundationsFull = Object.values(foundations).every(
+        (foundation) => foundation.length === 13
+      );
+      const deckEmpty = cards.length === 0 && !shownCard;
 
-  function checkWinCondition() {
-    const allFoundationsFull = Object.values(foundations).every(
-      (foundation) => foundation.length === 13
-    );
-    const deckEmpty = cards.length === 0 && !shownCard;
-
-    if (allFoundationsFull && deckEmpty) {
-      setIsGameWon(true);
+      if (allFoundationsFull && deckEmpty) {
+        setIsGameWon(true);
+      }
     }
-  }
+
+    checkWinCondition();
+  }, [foundations, cards, shownCard]);
 
   function handleDrawCard() {
     if (cards.length > 0) {
