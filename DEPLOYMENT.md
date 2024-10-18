@@ -58,7 +58,38 @@
    a. Add your app's domain to "Authorized JavaScript origins"
    b. Add your app's domain + '/callback' to "Authorized redirect URIs"
 
-[... keep any remaining relevant content ...]
+6. In Google Cloud Console, set up OAuth 2.0 client ID with these Authorized redirect URIs:
+
+   ```
+   http://localhost:3000/
+   https://thezhongfamily.net/
+   https://your-user-pool-domain.auth.region.amazoncognito.com/oauth2/idpresponse
+   ```
+
+7. In Cognito App client settings, add Allowed callback URLs:
+
+   ```
+   http://localhost:3000/
+   https://thezhongfamily.net/
+   ```
+
+8. In aws-exports.js, configure oauth section:
+
+   ```javascript
+   oauth: {
+     domain: 'your-user-pool-domain.auth.region.amazoncognito.com',
+     scope: ['email', 'profile', 'openid'],
+     redirectSignIn: 'http://localhost:3000/,https://thezhongfamily.net/,https://your-user-pool-domain.auth.region.amazoncognito.com/oauth2/idpresponse',
+     redirectSignOut: 'http://localhost:3000/,https://thezhongfamily.net/',
+     responseType: 'code'
+   }
+   ```
+
+9. Ensure trailing slashes are consistent across all configurations.
+
+10. Use Amplify's withAuthenticator HOC in your React app.
+
+**Note**: The inclusion of the `https://your-user-pool-domain.auth.region.amazoncognito.com/oauth2/idpresponse` URL in Google Cloud Console and maintaining consistent trailing slashes are crucial for successful authentication.
 
 ## Monitoring and Managing Your Deployment
 
