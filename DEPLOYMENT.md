@@ -60,14 +60,6 @@
 
 [... keep any remaining relevant content ...]
 
-## Setting up Google Authentication
-
-[... keep the existing Google Authentication setup steps ...]
-
-## Updating the React Application
-
-[... keep the existing React application update steps ...]
-
 ## Monitoring and Managing Your Deployment
 
 1. Go to the AWS Amplify Console in your browser.

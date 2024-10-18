@@ -1,23 +1,8 @@
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import {
-  DynamoDBDocumentClient,
-  PutCommand,
-  GetCommand,
-  UpdateCommand,
-  DeleteCommand,
-} from "@aws-sdk/lib-dynamodb";
-
-const client = new DynamoDBClient({ region: "us-east-1" });
-const docClient = DynamoDBDocumentClient.from(client);
+import { API } from "aws-amplify";
 
 export async function createItem(tableName, item) {
-  const command = new PutCommand({
-    TableName: tableName,
-    Item: item,
-  });
-
   try {
-    await docClient.send(command);
+    await API.post("apiName", `/items`, { body: item });
     return item;
   } catch (error) {
     console.error("Error creating item:", error);
@@ -26,14 +11,9 @@ export async function createItem(tableName, item) {
 }
 
 export async function getItem(tableName, key) {
-  const command = new GetCommand({
-    TableName: tableName,
-    Key: key,
-  });
-
   try {
-    const response = await docClient.send(command);
-    return response.Item;
+    const response = await API.get("apiName", `/items/${key.id}`);
+    return response;
   } catch (error) {
     console.error("Error getting item:", error);
     throw error;
@@ -46,17 +26,11 @@ export async function updateItem(
   updateExpression,
   expressionAttributeValues
 ) {
-  const command = new UpdateCommand({
-    TableName: tableName,
-    Key: key,
-    UpdateExpression: updateExpression,
-    ExpressionAttributeValues: expressionAttributeValues,
-    ReturnValues: "ALL_NEW",
-  });
-
   try {
-    const response = await docClient.send(command);
-    return response.Attributes;
+    const response = await API.put("apiName", `/items/${key.id}`, {
+      body: expressionAttributeValues,
+    });
+    return response;
   } catch (error) {
     console.error("Error updating item:", error);
     throw error;
@@ -64,13 +38,8 @@ export async function updateItem(
 }
 
 export async function deleteItem(tableName, key) {
-  const command = new DeleteCommand({
-    TableName: tableName,
-    Key: key,
-  });
-
   try {
-    await docClient.send(command);
+    await API.del("apiName", `/items/${key.id}`);
   } catch (error) {
     console.error("Error deleting item:", error);
     throw error;
