@@ -1,0 +1,37 @@
+// Overview
+This is a React-based web application bootstrapped with create-react-app.
+
+The application is a collection of single and multi-player card games.
+
+The application will be deployed on AWS Amplify.
+
+The application will use Google Auth for authentication in conjunction with AWS Cognito.
+
+The application will use AWS DynamoDB to store game states and user information.
+
+
+// Project Structure
+The project structure is as follows:
+
+```
+react-card-games/
+├── public/
+│   ├── index.html
+│   └── ...
+├── src/
+│   ├── App.js
+│   ├── Card.js
+│   ├── Deck.js
+│   ├── Game.js
+│   ├── Player.js
+│   ├── ...
+├── README.md
+├── package.json
+└── ...
+```
+
+
+
+
+
+

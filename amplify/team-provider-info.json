@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-reactcardgames-dev-132634-authRole",
+      "UnauthRoleArn": "arn:aws:iam::564667030386:role/amplify-reactcardgames-dev-132634-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::564667030386:role/amplify-reactcardgames-dev-132634-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-reactcardgames-dev-132634-deployment",
+      "UnauthRoleName": "amplify-reactcardgames-dev-132634-unauthRole",
+      "StackName": "amplify-reactcardgames-dev-132634",
+      "StackId": "arn:aws:cloudformation:us-east-1:564667030386:stack/amplify-reactcardgames-dev-132634/1fde62a0-8d76-11ef-be03-0afffc3a255f",
+      "AmplifyAppId": "d1vd662c9032mn"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d1vd662c9032mn",
+          "type": "cicd"
+        }
+      }
+    }
+  }
+}
