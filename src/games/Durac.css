@@ -1,0 +1,82 @@
+.durac-game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--color-background-900);
+}
+
+.durac-game h1 {
+  color: #5a3e2b;
+  font-size: 4rem;
+  margin-bottom: 2rem;
+}
+
+.game-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.player {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e7e7e7;
+  border-radius: 10px;
+  background-color: var(--color-background-500);
+}
+
+.player.active {
+  border-color: #9cad1f;
+  box-shadow: 0 0 10px rgba(156, 173, 31, 0.5);
+}
+
+.player h2 {
+  color: #5a3e2b;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.attack-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.attack-slot {
+  width: 120px;
+  height: 168px;
+  border: 2px solid #e7e7e7;
+  border-radius: 10px;
+  background-color: var(--color-background-100);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.deck-area {
+  margin-top: 2rem;
+}
+
+.back-link {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  color: #9cad1f;
+  text-decoration: none;
+  font-size: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  border: 3px solid #9cad1f;
+  border-radius: 7.5px;
+  transition: all 0.3s ease;
+}
