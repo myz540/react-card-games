@@ -19,12 +19,22 @@ react-card-games/
 │   ├── index.html
 │   └── ...
 ├── src/
-│   ├── App.js
-│   ├── Card.js
-│   ├── Deck.js
-│   ├── Game.js
-│   ├── Player.js
-│   ├── ...
+│   ├── components/
+│   │   ├── Foundation.js
+│   │   ├── Foundation.css
+│   │   ├── Hand.js
+│   │   ├── Hand.css
+│   │   ├── WinBanner.js
+│   │   ├── WinBanner.css
+│   │   ├── ...
+│   ├── games/
+│   │   ├── Durac.js
+│   │   ├── Durac.css
+│   │   ├── Solitaire.js
+│   │   ├── ...
+│   ├── utils/
+│   │   ├── dynamo.js
+│   │   ├── constants.js
 ├── README.md
 ├── package.json
 └── ...
