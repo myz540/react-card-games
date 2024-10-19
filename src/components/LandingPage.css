@@ -1,0 +1,74 @@
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: var(--color-background-900);
+}
+
+.landing-page h1 {
+  color: #5a3e2b;
+  font-size: 4.5rem; /* Increased from 3rem */
+  margin-bottom: 3rem; /* Increased from 2rem */
+}
+
+.landing-page nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.landing-page nav ul li {
+  margin: 1.5rem 0; /* Increased from 1rem */
+}
+
+.landing-page nav ul li a {
+  color: #9cad1f;
+  text-decoration: none;
+  font-size: 2.25rem; /* Increased from 1.5rem */
+  padding: 0.75rem 1.5rem; /* Increased from 0.5rem 1rem */
+  border: 3px solid #9cad1f; /* Increased from 2px */
+  border-radius: 7.5px; /* Increased from 5px */
+  transition: all 0.3s ease;
+  display: inline-block; /* Added to ensure proper sizing */
+}
+
+.landing-page nav ul li a:hover {
+  background-color: #9cad1f;
+  color: #fff;
+}
+
+/* sign out button */
+.landing-page .sign-out-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: #5a3e2b;
+  text-decoration: none;
+  font-size: 2rem;
+  padding: 1rem 1rem;
+  border: 2px solid #5a3e2b;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  display: inline-block;
+  background-color: transparent;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.landing-page nav ul li a:hover {
+  background-color: #9cad1f;
+  color: #fff;
+}
+
+.landing-page .sign-out-button:hover {
+  background-color: #5a3e2b;
+  color: #fff;
+}
+
+.landing-page .sign-out-button {
+  background-color: transparent;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  font-family: inherit;
+}

@@ -1,0 +1,26 @@
+/* Foundations */
+.foundations-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.foundation {
+  width: 120px;
+  height: 200px;
+  border: 2px solid #e7e7e7;
+  border-radius: 10px;
+  background-color: var(--color-background-500);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.foundation p {
+  margin-top: 0.5rem;
+  font-size: 1.4rem;
+  color: #5a3e2b;
+}

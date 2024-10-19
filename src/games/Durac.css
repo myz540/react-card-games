@@ -67,16 +67,3 @@
 .deck-area {
   margin-top: 2rem;
 }
-
-.back-link {
-  position: absolute;
-  top: 1.5rem;
-  left: 1.5rem;
-  color: #9cad1f;
-  text-decoration: none;
-  font-size: 1.5rem;
-  padding: 0.75rem 1.5rem;
-  border: 3px solid #9cad1f;
-  border-radius: 7.5px;
-  transition: all 0.3s ease;
-}

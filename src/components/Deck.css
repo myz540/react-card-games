@@ -20,4 +20,19 @@ input {
   font-weight: 700;
   font-size: 1.8rem;
   cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.deck div {
+  border: 8px double hsl(0, 0%, 91%);
+  border-radius: 12px;
+  aspect-ratio: 1 / 1;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2px;
+  cursor: pointer;
+  height: auto;
+  width: auto;
 }

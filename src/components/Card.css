@@ -1,0 +1,52 @@
+/* Shown card */
+.shown-card {
+  width: 120px;
+  height: 180px;
+  border: 3px solid #e7e7e7; /* Using the existing button color for consistency */
+  border-radius: 12px;
+  background-color: var(--color-background-500);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  padding: 10px;
+}
+
+.shown-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Individual cards */
+.card {
+  width: 100px;
+  height: 160px;
+  border: 3px solid #e7e7e7;
+  border-radius: 10px;
+  background-color: var(--color-background-500);
+  display: flex;
+  justify-content: center;
+  line-height: 0.8;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card.selected {
+  box-shadow: 0 0 0 3px #9cad1f, 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+.card.SPADE,
+.card.CLUB {
+  font-size: 150px;
+  color: black;
+}
+
+.card.HEART,
+.card.DIAMOND {
+  font-size: 150px;
+  color: red;
+}

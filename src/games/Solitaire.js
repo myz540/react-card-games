@@ -6,6 +6,9 @@ import Foundation from "../components/Foundation";
 import WinBanner from "../components/WinBanner";
 import { Link } from "react-router-dom";
 import "../components/Deck.css";
+import "../components/Card.css";
+import "../components/Foundation.css";
+import "../components/WinBanner.css";
 import "./Solitaire.css";
 
 export default function Solitaire() {
