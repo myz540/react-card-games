@@ -28,29 +28,37 @@ User (Use Google Auth IDP)
 
 Game
 
-- id
-- users
-- gameType
-- gameState
-- inProgress
+- id (int)
+- users (array of User IDs)
+- gameType (string)
+- gameState (string)
+- inProgress (boolean)
 
 GameState
 
-- id
-- player
-- deck
-- discardPile
-- createdAt
-- updatedAt
-- attackSlots
-- primaryAttacker
-- defender
+- id (int)
+- players (array of Player objects)
+- deck (array of Card objects)
+- discardPile (array of Card objects)
+- createdAt (datetime)
+- updatedAt (datetime)
+- attackSlots (array of AttackSlot objects)
+- primaryAttacker (player ID)
+- defender (player ID)
 
 Player
 
-- id
-- userId
-- hand
+- id (int)
+- userId (int)
+- hand (array of Card objects)
+
+AttackSlot
+
+- id (int) -- max 6
+- defender (player ID)
+- attacker (player ID)
+- attackCard (Card object)
+- defendCard (Card object)
 
 ## Available Scripts
 
