@@ -14,48 +14,14 @@ function Durac() {
     primaryAttacker: null,
     defender: null,
     currentPlayer: null,
-    gamePhase: "setup",
-    trumpSuit: null,
+    gamePhase: "attack",
+    trumpSuit: null, // Add this line
+    // ... other state properties ...
   });
 
   useEffect(() => {
-    if (gameState.gamePhase === "playing") {
-      positionHands();
-    }
-  }, [gameState.players, gameState.gamePhase]);
-
-  const joinGame = () => {
-    const newPlayer = {
-      id: Date.now(),
-      name: `Player ${gameState.players.length + 1}`,
-      hand: [],
-    };
-    setGameState((prevState) => ({
-      ...prevState,
-      players: [...prevState.players, newPlayer],
-      // If this is the first player, set them as the primary attacker
-      primaryAttacker:
-        prevState.players.length === 0 ? newPlayer : prevState.primaryAttacker,
-    }));
-  };
-
-  const leaveGame = () => {
-    setGameState((prevState) => {
-      const updatedPlayers = prevState.players.filter(
-        (player) => player.id !== prevState.primaryAttacker.id
-      );
-      return {
-        ...prevState,
-        players: updatedPlayers,
-        // If the primary attacker left, set the next player as primary attacker
-        primaryAttacker: updatedPlayers.length > 0 ? updatedPlayers[0] : null,
-      };
-    });
-  };
-
-  const startGame = () => {
     initializeGame();
-  };
+  }, []);
 
   const initializeGame = () => {
     const deck = shuffle(CARD_MAP);
@@ -68,15 +34,14 @@ function Durac() {
       // ... other state properties ...
       deck: deck,
       trumpSuit: trumpSuit,
-      gamePhase: "playing",
     });
   };
 
   const handleCardPlay = (playerId, card) => {
-    if (playerId === gameState.defender.id) {
-      handleDefend(playerId, card);
-    } else {
+    if (gameState.gamePhase === "attack") {
       handleAttack(playerId, card);
+    } else {
+      handleDefend(playerId, card);
     }
   };
 
@@ -262,16 +227,7 @@ function Durac() {
     }
   };
 
-  const positionHands = () => {
-    const handElements = document.querySelectorAll(".player-hand");
-    const totalPlayers = gameState.players.length;
-    handElements.forEach((hand, index) => {
-      const angle = (index / totalPlayers) * 2 * Math.PI;
-      const x = 300 + 250 * Math.sin(angle);
-      const y = 300 + 250 * Math.cos(angle);
-      hand.style.transform = `translate(${x}px, ${y}px)`;
-    });
-  };
+  // ... (other helper functions remain the same)
 
   return (
     <div className="durac-game">
