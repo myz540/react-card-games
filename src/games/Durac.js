@@ -322,11 +322,50 @@ function Durac() {
     </div>
   );
 
+  const handleBackClick = () => {
+    console.log("Back link clicked");
+  };
+
   const renderGameBoard = () => (
     <div className="durac-game-board">
-      <Link to="/" className="back-link">
-        Back
+      <Link
+        to="/"
+        className="back-link"
+        onClick={handleBackClick}
+        style={{
+          position: "absolute",
+          top: "10px",
+          left: "10px",
+          zIndex: 1000,
+          padding: "10px",
+          background: "white",
+          border: "1px solid black",
+          cursor: "pointer",
+        }}
+      >
+        Back to Home
       </Link>
+      {/* Temporary anchor tag for testing */}
+      <a
+        href="/"
+        className="back-link-test"
+        onClick={(e) => {
+          e.preventDefault();
+          console.log("Test anchor clicked");
+        }}
+        style={{
+          position: "absolute",
+          top: "50px",
+          left: "10px",
+          zIndex: 1000,
+          padding: "10px",
+          background: "white",
+          border: "1px solid black",
+          cursor: "pointer",
+        }}
+      >
+        Test Back Link
+      </a>
       {renderGameInfo()}
       <div className="durac-hands-circle">
         {gameState.players.map((player) => (
