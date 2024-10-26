@@ -5,8 +5,8 @@
 
 .durac-game-board {
   position: relative;
-  width: 800px;
-  height: 800px;
+  width: 1000px;
+  height: 1000px;
   margin: 0 auto;
 }
 
@@ -117,32 +117,9 @@
 
 .durac-center-area {
   position: absolute;
-  top: 50%;
   left: 50%;
+  top: 45%;
   transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.durac-attack-slots {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.durac-attack-slot {
-  width: 60px;
-  height: 90px;
-  border: 1px dashed #ccc;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.durac-attack-slot.empty {
-  background-color: rgba(0, 0, 0, 0.1);
 }
 
 /* Update pickup button to match new style */
@@ -165,4 +142,14 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+}
+
+.durac-attack-slots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 5px;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
 }

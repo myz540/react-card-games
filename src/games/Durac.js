@@ -5,6 +5,7 @@ import Hand from "../components/Hand";
 import Card from "../components/Card";
 import { CARD_MAP, CARD_BACK, shuffle } from "../constants";
 import "./Durac.css";
+import AttackSlot from "../components/AttackSlot";
 
 function Durac() {
   const [gameState, setGameState] = useState({
@@ -250,22 +251,23 @@ function Durac() {
   const renderAttackSlots = () => (
     <div className="durac-attack-slots">
       {gameState.attackSlots.map((slot) => (
-        <div key={slot.id} className="durac-attack-slot">
-          {slot.attackCard && <Card card={slot.attackCard} faceUp={true} />}
-          {slot.defendCard && <Card card={slot.defendCard} faceUp={true} />}
-        </div>
+        <AttackSlot
+          key={slot.id}
+          attackCard={slot.attackCard}
+          defendCard={slot.defendCard}
+        />
       ))}
       {/* Add empty slots if needed */}
       {[...Array(6 - gameState.attackSlots.length)].map((_, index) => (
-        <div key={`empty-${index}`} className="durac-attack-slot empty"></div>
+        <AttackSlot key={`empty-${index}`} />
       ))}
     </div>
   );
 
   const renderGameBoard = () => {
-    const centerX = 400; // Half of the game board width
-    const centerY = 400; // Half of the game board height
-    const radius = 300; // Adjust this value to change the size of the circle
+    const centerX = 450;
+    const centerY = 420;
+    const radius = 320;
 
     return (
       <div className="durac-game-board">
