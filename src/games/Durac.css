@@ -140,6 +140,10 @@
   justify-content: space-between;
 }
 
+.durac-attack-slot.empty {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 /* Update pickup button to match new style */
 .pickup-button {
   font-size: 1.4rem;

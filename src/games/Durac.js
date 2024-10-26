@@ -58,7 +58,7 @@ function Durac() {
   const handleCardPlay = (playerId, card) => {
     if (gameState.gamePhase === "attack") {
       handleAttack(playerId, card);
-    } else {
+    } else if (gameState.gamePhase === "defend") {
       handleDefend(playerId, card);
     }
   };
@@ -266,52 +266,60 @@ function Durac() {
     });
   };
 
-  const renderHand = (player) => {
-    const isSelf = player.id === 1; // Assuming you (developer) are always Player 1
-    return (
-      <div className={`durac-hand ${isSelf ? "self" : "other"}`}>
-        {player.hand.map((card, index) => (
-          <div
-            key={index}
-            className={`durac-card-wrapper ${
-              index === player.hand.length - 1 ? "top" : "sliver"
-            }`}
-            style={{
-              zIndex: index + 1,
-              left: `${index * 20}px`, // Offset each card to create a sliver effect
-            }}
-            onClick={() => isSelf && handleCardPlay(player.id, card)}
-          >
-            <Card
-              card={isSelf ? card : CARD_BACK}
-              faceUp={true} // Always true because we're using CARD_BACK for other players
-            />
-          </div>
-        ))}
-      </div>
-    );
-  };
-
   const renderAttackSlots = () => (
     <div className="durac-attack-slots">
-      {Array(6)
-        .fill(null)
-        .map((_, index) => (
-          <div key={index} className="durac-attack-slot">
-            {gameState.attackSlots[index]?.attackCard && (
-              <Card
-                card={gameState.attackSlots[index].attackCard}
-                faceUp={true}
+      {gameState.attackSlots.map((slot) => (
+        <div key={slot.id} className="durac-attack-slot">
+          {slot.attackCard && <Card card={slot.attackCard} faceUp={true} />}
+          {slot.defendCard && <Card card={slot.defendCard} faceUp={true} />}
+        </div>
+      ))}
+      {/* Add empty slots if needed */}
+      {[...Array(6 - gameState.attackSlots.length)].map((_, index) => (
+        <div key={`empty-${index}`} className="durac-attack-slot empty"></div>
+      ))}
+    </div>
+  );
+
+  const renderGameBoard = () => (
+    <div className="durac-game-board">
+      <div className="durac-hands-circle">
+        {gameState.players.map((player, index) => {
+          const isVertical = index === 1 || index === 3;
+          return (
+            <div
+              key={player.id}
+              className="durac-player-hand"
+              style={{
+                position: "absolute",
+                top: index === 0 ? "100%" : index === 2 ? "0" : "50%",
+                left: index === 3 ? "0" : index === 1 ? "100%" : "50%",
+                transform: `translate(-50%, -50%) rotate(${index * 90}deg)`,
+              }}
+            >
+              <Hand
+                player={player}
+                isSelf={player.id === 1}
+                orientation={["bottom", "left", "top", "right"][index]}
+                onCardPlay={handleCardPlay}
+                isVertical={isVertical}
               />
-            )}
-            {gameState.attackSlots[index]?.defendCard && (
-              <Card
-                card={gameState.attackSlots[index].defendCard}
-                faceUp={true}
-              />
-            )}
-          </div>
-        ))}
+            </div>
+          );
+        })}
+      </div>
+      <div className="durac-center-area">
+        {renderAttackSlots()}
+        {gameState.gamePhase === "defend" && gameState.defender.id === 1 && (
+          <button className="pickup-button durac-button" onClick={handlePickUp}>
+            Pick Up
+          </button>
+        )}
+      </div>
+      {renderGameInfo()}
+      <Link to="/" className="back-link" onClick={handleBackClick}>
+        Back to Home
+      </Link>
     </div>
   );
 
@@ -342,31 +350,6 @@ function Durac() {
   const handleBackClick = () => {
     console.log("Back link clicked");
   };
-
-  const renderGameBoard = () => (
-    <div className="durac-game-board">
-      <div className="durac-hands-circle">
-        {gameState.players.map((player) => (
-          <div key={player.id} className="durac-player-hand">
-            {renderHand(player)}
-            <div className="player-name">{player.name}</div>
-          </div>
-        ))}
-      </div>
-      <div className="durac-center-area">
-        {renderAttackSlots()}
-        {gameState.gamePhase === "defend" && gameState.defender.id === 1 && (
-          <button className="pickup-button durac-button" onClick={handlePickUp}>
-            Pick Up
-          </button>
-        )}
-      </div>
-      {renderGameInfo()}
-      <Link to="/" className="back-link" onClick={handleBackClick}>
-        Back to Home
-      </Link>
-    </div>
-  );
 
   return (
     <div className="durac-game">
