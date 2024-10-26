@@ -3,9 +3,9 @@ import Card from "./Card";
 import { CARD_BACK } from "../constants";
 import "./Hand.css";
 
-const Hand = ({ player, isSelf, orientation, onCardPlay, isVertical }) => {
+const Hand = ({ player, isSelf, onCardPlay }) => {
   return (
-    <div className={`hand ${orientation} ${isSelf ? "self" : "other"} ${isVertical ? "vertical" : ""}`}>
+    <div className={`hand ${isSelf ? "self" : "other"}`}>
       <div className="hand-cards">
         {player.hand.map((card, index) => (
           <div
@@ -15,7 +15,7 @@ const Hand = ({ player, isSelf, orientation, onCardPlay, isVertical }) => {
             }`}
             style={{
               zIndex: index + 1,
-              [isVertical ? 'top' : 'left']: `${index * 20}px`,
+              left: `${index * 20}px`,
             }}
             onClick={() => isSelf && onCardPlay(player.id, card)}
           >
@@ -23,11 +23,11 @@ const Hand = ({ player, isSelf, orientation, onCardPlay, isVertical }) => {
           </div>
         ))}
       </div>
-      <div className="player-info-wrapper">
-        <div className="player-info">
-          <div className="player-name">{player.user ? player.user.username : `Player ${player.id}`}</div>
-          <div className="card-count">{player.hand.length} cards</div>
+      <div className="player-info">
+        <div className="player-name">
+          {player.user ? player.user.username : `Player ${player.id}`}
         </div>
+        <div className="card-count">{player.hand.length} cards</div>
       </div>
     </div>
   );

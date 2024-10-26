@@ -284,29 +284,26 @@ function Durac() {
   const renderGameBoard = () => (
     <div className="durac-game-board">
       <div className="durac-hands-circle">
-        {gameState.players.map((player, index) => {
-          const isVertical = index === 1 || index === 3;
-          return (
-            <div
-              key={player.id}
-              className="durac-player-hand"
-              style={{
-                position: "absolute",
-                top: index === 0 ? "100%" : index === 2 ? "0" : "50%",
-                left: index === 3 ? "0" : index === 1 ? "100%" : "50%",
-                transform: `translate(-50%, -50%) rotate(${index * 90}deg)`,
-              }}
-            >
-              <Hand
-                player={player}
-                isSelf={player.id === 1}
-                orientation={["bottom", "left", "top", "right"][index]}
-                onCardPlay={handleCardPlay}
-                isVertical={isVertical}
-              />
-            </div>
-          );
-        })}
+        {gameState.players.map((player, index) => (
+          <div
+            key={player.id}
+            className="durac-player-hand"
+            style={{
+              position: "absolute",
+              top: index === 0 ? "auto" : index === 2 ? "0" : "50%",
+              bottom: index === 0 ? "0" : "auto",
+              left: index === 3 ? "0" : index === 1 ? "auto" : "50%",
+              right: index === 1 ? "0" : "auto",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            <Hand
+              player={player}
+              isSelf={player.id === 1}
+              onCardPlay={handleCardPlay}
+            />
+          </div>
+        ))}
       </div>
       <div className="durac-center-area">
         {renderAttackSlots()}

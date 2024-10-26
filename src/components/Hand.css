@@ -7,21 +7,10 @@
   align-items: center;
 }
 
-.hand.vertical {
-  width: 180px;
-  height: 200px;
-  flex-direction: row;
-}
-
 .hand-cards {
   position: relative;
   width: 140px;
   height: 150px;
-}
-
-.hand.vertical .hand-cards {
-  width: 150px;
-  height: 140px;
 }
 
 .hand-card {
@@ -34,45 +23,13 @@
   overflow: hidden;
 }
 
-.hand.vertical .hand-card.stacked {
-  width: auto;
-  height: 20px;
-  overflow: hidden;
-}
-
 .hand-card.top {
   width: auto;
   overflow: visible;
 }
 
-.hand.vertical .hand-card.top {
-  height: auto;
-  width: 100px;
-  overflow: visible;
-}
-
 .hand-card:hover {
   transform: translateY(-10px);
-}
-
-.hand.vertical .hand-card:hover {
-  transform: translateX(-10px);
-}
-
-.player-info-wrapper {
-  position: absolute;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  bottom: -30px;
-}
-
-.hand.vertical .player-info-wrapper {
-  width: auto;
-  height: 100%;
-  right: -30px;
-  bottom: auto;
-  align-items: center;
 }
 
 .player-info {
@@ -82,7 +39,7 @@
   background-color: rgba(255, 255, 255, 0.8);
   padding: 5px;
   border-radius: 5px;
-  white-space: nowrap;
+  margin-top: 10px;
 }
 
 .player-name {
@@ -98,13 +55,13 @@
   transform: rotate(180deg);
 }
 .hand.right {
-  transform: rotate(270deg);
+  transform: rotate(180deg);
 }
 .hand.bottom {
   transform: rotate(0deg);
 }
 .hand.left {
-  transform: rotate(90deg);
+  transform: rotate(180deg);
 }
 
 /* Ensure player info is always readable */
