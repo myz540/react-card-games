@@ -14,9 +14,9 @@ function Durac() {
     primaryAttacker: null,
     defender: null,
     currentPlayer: null,
-    gamePhase: "attack",
-    trumpSuit: null, // Add this line
-    // ... other state properties ...
+    gamePhase: "setup",
+    trumpSuit: null,
+    validAttackValues: [],
   });
 
   useEffect(() => {
@@ -25,15 +25,33 @@ function Durac() {
 
   const initializeGame = () => {
     const deck = shuffle(CARD_MAP);
-    const trumpCard = deck[deck.length - 1]; // Last card determines trump suit
+    const trumpCard = deck[deck.length - 1];
     const trumpSuit = trumpCard.suit;
 
-    // ... rest of game initialization ...
+    const players = [
+      { id: 1, name: "Player 1", hand: [] },
+      { id: 2, name: "Player 2", hand: [] },
+      { id: 3, name: "Player 3", hand: [] },
+      { id: 4, name: "Player 4", hand: [] },
+    ];
+
+    // Deal cards to players
+    players.forEach((player) => {
+      for (let i = 0; i < 6; i++) {
+        player.hand.push(deck.pop());
+      }
+    });
 
     setGameState({
-      // ... other state properties ...
-      deck: deck,
-      trumpSuit: trumpSuit,
+      players,
+      deck,
+      trumpSuit,
+      primaryAttacker: players[0],
+      defender: players[1],
+      currentPlayer: players[0],
+      gamePhase: "attack",
+      attackSlots: [],
+      validAttackValues: [],
     });
   };
 
@@ -70,11 +88,17 @@ function Durac() {
       };
 
       const updatedAttackSlots = [...prevState.attackSlots, newAttackSlot];
+      const updatedValidAttackValues = [
+        ...new Set([...prevState.validAttackValues, card.value]),
+      ];
 
       return {
         ...prevState,
         players: updatedPlayers,
         attackSlots: updatedAttackSlots,
+        validAttackValues: updatedValidAttackValues,
+        gamePhase: "defend",
+        currentPlayer: prevState.defender,
       };
     });
   };
@@ -104,10 +128,9 @@ function Durac() {
         return prevState; // No attacks to defend
       }
 
-      // TODO: Implement canDefend function
-      // This function should be defined elsewhere, possibly in a utility file
-      // It should compare the attack card and defense card to determine if the defense is valid
-      if (!canDefend(undefendedAttackSlot.attackCard, card)) {
+      if (
+        !canDefend(undefendedAttackSlot.attackCard, card, prevState.trumpSuit)
+      ) {
         return prevState; // Invalid defense
       }
 
@@ -128,94 +151,91 @@ function Durac() {
         return slot;
       });
 
+      const updatedValidAttackValues = [
+        ...new Set([...prevState.validAttackValues, card.value]),
+      ];
+
       return {
         ...prevState,
         players: updatedPlayers,
         attackSlots: updatedAttackSlots,
+        validAttackValues: updatedValidAttackValues,
+        gamePhase: "attack",
+        currentPlayer: prevState.primaryAttacker,
       };
     });
 
     checkEndRound();
   };
 
-  const canDefend = (attackCard, defendCard) => {
-    const { trumpSuit } = gameState;
-
-    // Check if the defending card is of the same suit and higher value
+  const canDefend = (attackCard, defendCard, trumpSuit) => {
     if (
       attackCard.suit === defendCard.suit &&
       defendCard.value > attackCard.value
     ) {
       return true;
     }
-
-    // Check if the defending card is a trump and the attacking card is not
     if (defendCard.suit === trumpSuit && attackCard.suit !== trumpSuit) {
       return true;
     }
-
-    // If both cards are trumps, check if the defending card has a higher value
-    if (
-      defendCard.suit === trumpSuit &&
-      attackCard.suit === trumpSuit &&
-      defendCard.value > attackCard.value
-    ) {
-      return true;
-    }
-
     return false;
   };
 
   const checkEndRound = () => {
-    const allDefended = gameState.attackSlots.every((slot) => slot.defendCard);
-    const maxAttacks = gameState.attackSlots.length >= 6;
-
-    if (allDefended || maxAttacks) {
-      endRound(allDefended);
-    }
-  };
-
-  const endRound = (successful) => {
     setGameState((prevState) => {
-      let updatedPlayers = [...prevState.players];
-      let updatedDeck = [...prevState.deck];
+      const allDefended = prevState.attackSlots.every(
+        (slot) => slot.defendCard
+      );
+      const maxAttacks = prevState.attackSlots.length >= 6;
 
-      if (!successful) {
-        // Defender picks up all cards
-        const allCards = prevState.attackSlots.flatMap((slot) =>
-          [slot.attackCard, slot.defendCard].filter(Boolean)
-        );
-        const defender = updatedPlayers.find(
-          (p) => p.id === prevState.defender.id
-        );
-        defender.hand = [...defender.hand, ...allCards];
+      if (allDefended || maxAttacks) {
+        return endRound(prevState, allDefended);
       }
 
-      // Draw cards
-      updatedPlayers = updatedPlayers.map((player) => {
-        while (player.hand.length < 6 && updatedDeck.length > 0) {
-          player.hand.push(updatedDeck.pop());
-        }
-        return player;
-      });
-
-      // Set new attacker and defender
-      const newAttackerIndex =
-        (updatedPlayers.findIndex((p) => p.id === prevState.defender.id) + 1) %
-        updatedPlayers.length;
-      const newDefenderIndex = (newAttackerIndex + 1) % updatedPlayers.length;
-
-      return {
-        ...prevState,
-        players: updatedPlayers,
-        deck: updatedDeck,
-        attackSlots: [],
-        primaryAttacker: updatedPlayers[newAttackerIndex],
-        defender: updatedPlayers[newDefenderIndex],
-        currentPlayer: updatedPlayers[newAttackerIndex],
-        gamePhase: "attack",
-      };
+      return prevState;
     });
+  };
+
+  const endRound = (prevState, successful) => {
+    let updatedPlayers = [...prevState.players];
+    let updatedDeck = [...prevState.deck];
+
+    if (!successful) {
+      // Defender picks up all cards
+      const allCards = prevState.attackSlots.flatMap((slot) =>
+        [slot.attackCard, slot.defendCard].filter(Boolean)
+      );
+      const defender = updatedPlayers.find(
+        (p) => p.id === prevState.defender.id
+      );
+      defender.hand = [...defender.hand, ...allCards];
+    }
+
+    // Draw cards
+    updatedPlayers = updatedPlayers.map((player) => {
+      while (player.hand.length < 6 && updatedDeck.length > 0) {
+        player.hand.push(updatedDeck.pop());
+      }
+      return player;
+    });
+
+    // Set new attacker and defender
+    const newAttackerIndex =
+      (updatedPlayers.findIndex((p) => p.id === prevState.defender.id) + 1) %
+      updatedPlayers.length;
+    const newDefenderIndex = (newAttackerIndex + 1) % updatedPlayers.length;
+
+    return {
+      ...prevState,
+      players: updatedPlayers,
+      deck: updatedDeck,
+      attackSlots: [],
+      primaryAttacker: updatedPlayers[newAttackerIndex],
+      defender: updatedPlayers[newDefenderIndex],
+      currentPlayer: updatedPlayers[newAttackerIndex],
+      gamePhase: "attack",
+      validAttackValues: [],
+    };
   };
 
   const handlePickUp = () => {
@@ -223,49 +243,85 @@ function Durac() {
       gameState.gamePhase === "defend" &&
       gameState.currentPlayer.id === gameState.defender.id
     ) {
-      endRound(false);
+      setGameState((prevState) => endRound(prevState, false));
     }
   };
 
-  // ... (other helper functions remain the same)
+  useEffect(() => {
+    if (gameState.gamePhase !== "setup") {
+      positionHands();
+    }
+  }, [gameState.players, gameState.gamePhase]);
+
+  const positionHands = () => {
+    const handElements = document.querySelectorAll(".durac-player-hand");
+    const totalPlayers = gameState.players.length;
+    handElements.forEach((hand, index) => {
+      const angle = (index / totalPlayers) * 2 * Math.PI;
+      const x = 300 + 250 * Math.sin(angle);
+      const y = 300 - 250 * Math.cos(angle);
+      hand.style.left = `${x}px`;
+      hand.style.top = `${y}px`;
+      hand.style.transform = `rotate(${(angle * 180) / Math.PI}deg)`;
+    });
+  };
+
+  const renderHand = (player) => {
+    const isSelf = player.id === gameState.primaryAttacker.id;
+    return (
+      <div className={`durac-hand ${isSelf ? "self" : "other"}`}>
+        {player.hand.map((card, index) => (
+          <div
+            key={index}
+            className={`durac-card-wrapper ${index === 0 ? "top" : "sliver"}`}
+            style={{ zIndex: player.hand.length - index }}
+            onClick={() => isSelf && handleCardPlay(player.id, card)}
+          >
+            <Card card={card} faceUp={isSelf} />
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  const renderAttackSlots = () => (
+    <div className="durac-attack-slots">
+      {gameState.attackSlots.map((slot, index) => (
+        <div key={index} className="durac-attack-slot">
+          {slot.attackCard && <Card card={slot.attackCard} faceUp={true} />}
+          {slot.defendCard && <Card card={slot.defendCard} faceUp={true} />}
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderGameBoard = () => (
+    <div className="durac-game-board">
+      <div className="durac-hands-circle">
+        {gameState.players.map((player) => (
+          <div key={player.id} className="durac-player-hand">
+            {renderHand(player)}
+          </div>
+        ))}
+      </div>
+      <div className="durac-center-area">
+        {renderAttackSlots()}
+        <div className="durac-deck-count">{gameState.deck.length} cards</div>
+        <div className="durac-trump-suit">Trump: {gameState.trumpSuit}</div>
+        {gameState.gamePhase === "defend" && (
+          <button onClick={handlePickUp}>Pick Up</button>
+        )}
+      </div>
+    </div>
+  );
 
   return (
     <div className="durac-game">
-      <h1>Durac</h1>
-      <div className="game-board">
-        {gameState.players.map((player) => (
-          <div
-            key={player.id}
-            className={`player ${
-              player.id === gameState.currentPlayer.id ? "active" : ""
-            }`}
-          >
-            <h2>{player.name}</h2>
-            <Hand
-              cards={player.hand}
-              onCardClick={(card) => handleCardPlay(player.id, card)}
-            />
-            {player.id === gameState.defender.id &&
-              gameState.gamePhase === "defend" && (
-                <button onClick={handlePickUp}>Pick Up Cards</button>
-              )}
-          </div>
-        ))}
-        <div className="attack-slots">
-          {gameState.attackSlots.map((slot) => (
-            <div key={slot.id} className="attack-slot">
-              <Card card={slot.attackCard} />
-              {slot.defendCard && <Card card={slot.defendCard} />}
-            </div>
-          ))}
-        </div>
-        <div className="deck-area">
-          <Deck cards={gameState.deck} />
-        </div>
-      </div>
-      <Link to="/" className="back-link">
-        Back to Home
-      </Link>
+      {gameState.gamePhase === "setup" ? (
+        <button onClick={initializeGame}>Start Game</button>
+      ) : (
+        renderGameBoard()
+      )}
     </div>
   );
 }

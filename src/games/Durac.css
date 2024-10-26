@@ -1,69 +1,74 @@
 .durac-game {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  background-color: var(--color-background-900);
+  height: 100vh;
 }
 
-.durac-game h1 {
-  color: #5a3e2b;
-  font-size: 4rem;
-  margin-bottom: 2rem;
-}
-
-.game-board {
+.durac-game-board {
+  flex: 1;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  width: 100%;
-}
-
-.player {
-  width: 100%;
-  padding: 1rem;
-  border: 2px solid #e7e7e7;
-  border-radius: 10px;
-  background-color: var(--color-background-500);
-}
-
-.player.active {
-  border-color: #9cad1f;
-  box-shadow: 0 0 10px rgba(156, 173, 31, 0.5);
-}
-
-.player h2 {
-  color: #5a3e2b;
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-.attack-slots {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 2rem;
-}
-
-.attack-slot {
-  width: 120px;
-  height: 168px;
-  border: 2px solid #e7e7e7;
-  border-radius: 10px;
-  background-color: var(--color-background-100);
-  display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
-.deck-area {
-  margin-top: 2rem;
+.durac-hands-circle {
+  width: 600px;
+  height: 600px;
+  position: relative;
+}
+
+.durac-player-hand {
+  position: absolute;
+  transform-origin: center bottom;
+}
+
+.durac-hand {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 120px;
+  width: 200px;
+}
+
+.durac-card-wrapper {
+  position: absolute;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.durac-card-wrapper.sliver {
+  width: 15px;
+  overflow: hidden;
+}
+
+.durac-card-wrapper:hover {
+  transform: translateY(-10px);
+}
+
+.durac-center-area {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.durac-attack-slots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.durac-attack-slot {
+  width: 60px;
+  height: 90px;
+  border: 1px dashed #ccc;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.durac-deck-count {
+  margin-top: 20px;
+  text-align: center;
 }
