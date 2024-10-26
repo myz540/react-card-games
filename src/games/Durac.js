@@ -298,7 +298,10 @@ function Durac() {
         <div className="durac-center-area">
           {renderAttackSlots()}
           {gameState.gamePhase === "defend" && gameState.defender.id === 1 && (
-            <button className="pickup-button durac-button" onClick={handlePickUp}>
+            <button
+              className="pickup-button durac-button"
+              onClick={handlePickUp}
+            >
               Pick Up
             </button>
           )}
