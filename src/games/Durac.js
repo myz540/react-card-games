@@ -247,25 +247,6 @@ function Durac() {
     }
   };
 
-  useEffect(() => {
-    if (gameState.gamePhase !== "setup") {
-      positionHands();
-    }
-  }, [gameState.players, gameState.gamePhase]);
-
-  const positionHands = () => {
-    const handElements = document.querySelectorAll(".durac-player-hand");
-    const totalPlayers = gameState.players.length;
-    handElements.forEach((hand, index) => {
-      const angle = (index / totalPlayers) * 2 * Math.PI;
-      const x = 300 + 250 * Math.sin(angle);
-      const y = 300 - 250 * Math.cos(angle);
-      hand.style.left = `${x}px`;
-      hand.style.top = `${y}px`;
-      hand.style.transform = `rotate(${(angle * 180) / Math.PI}deg)`;
-    });
-  };
-
   const renderAttackSlots = () => (
     <div className="durac-attack-slots">
       {gameState.attackSlots.map((slot) => (
@@ -281,44 +262,54 @@ function Durac() {
     </div>
   );
 
-  const renderGameBoard = () => (
-    <div className="durac-game-board">
-      <div className="durac-hands-circle">
-        {gameState.players.map((player, index) => (
-          <div
-            key={player.id}
-            className="durac-player-hand"
-            style={{
-              position: "absolute",
-              top: index === 0 ? "auto" : index === 2 ? "0" : "50%",
-              bottom: index === 0 ? "0" : "auto",
-              left: index === 3 ? "0" : index === 1 ? "auto" : "50%",
-              right: index === 1 ? "0" : "auto",
-              transform: "translate(-50%, -50%)",
-            }}
-          >
-            <Hand
-              player={player}
-              isSelf={player.id === 1}
-              onCardPlay={handleCardPlay}
-            />
-          </div>
-        ))}
+  const renderGameBoard = () => {
+    const centerX = 400; // Half of the game board width
+    const centerY = 400; // Half of the game board height
+    const radius = 300; // Adjust this value to change the size of the circle
+
+    return (
+      <div className="durac-game-board">
+        <div className="durac-hands-circle">
+          {gameState.players.map((player, index) => {
+            const angle = (index * Math.PI) / 2; // Divide the circle into 4 parts
+            const x = centerX + radius * Math.cos(angle);
+            const y = centerY + radius * Math.sin(angle);
+
+            return (
+              <div
+                key={player.id}
+                className="durac-player-hand"
+                style={{
+                  position: "absolute",
+                  left: `${x}px`,
+                  top: `${y}px`,
+                  transform: "translate(-50%, -50%)",
+                }}
+              >
+                <Hand
+                  player={player}
+                  isSelf={player.id === 1}
+                  onCardPlay={handleCardPlay}
+                />
+              </div>
+            );
+          })}
+        </div>
+        <div className="durac-center-area">
+          {renderAttackSlots()}
+          {gameState.gamePhase === "defend" && gameState.defender.id === 1 && (
+            <button className="pickup-button durac-button" onClick={handlePickUp}>
+              Pick Up
+            </button>
+          )}
+        </div>
+        {renderGameInfo()}
+        <Link to="/" className="back-link" onClick={handleBackClick}>
+          Back to Home
+        </Link>
       </div>
-      <div className="durac-center-area">
-        {renderAttackSlots()}
-        {gameState.gamePhase === "defend" && gameState.defender.id === 1 && (
-          <button className="pickup-button durac-button" onClick={handlePickUp}>
-            Pick Up
-          </button>
-        )}
-      </div>
-      {renderGameInfo()}
-      <Link to="/" className="back-link" onClick={handleBackClick}>
-        Back to Home
-      </Link>
-    </div>
-  );
+    );
+  };
 
   const restartGame = () => {
     setGameState({

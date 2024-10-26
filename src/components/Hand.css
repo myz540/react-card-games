@@ -1,7 +1,6 @@
 .hand {
   position: relative;
   width: 200px;
-  height: 180px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,6 +10,7 @@
   position: relative;
   width: 140px;
   height: 150px;
+  margin-top: 10px;
 }
 
 .hand-card {
@@ -39,7 +39,7 @@
   background-color: rgba(255, 255, 255, 0.8);
   padding: 5px;
   border-radius: 5px;
-  margin-top: 10px;
+  width: 100%;
 }
 
 .player-name {
@@ -48,27 +48,6 @@
 
 .card-count {
   font-size: 12px;
-}
-
-/* Orientations */
-.hand.top {
-  transform: rotate(180deg);
-}
-.hand.right {
-  transform: rotate(180deg);
-}
-.hand.bottom {
-  transform: rotate(0deg);
-}
-.hand.left {
-  transform: rotate(180deg);
-}
-
-/* Ensure player info is always readable */
-.hand.top .player-info,
-.hand.right .player-info,
-.hand.left .player-info {
-  transform: rotate(180deg);
 }
 
 /* Self vs Other styling */

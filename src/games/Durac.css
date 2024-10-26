@@ -73,7 +73,7 @@
 }
 
 .durac-hands-circle {
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 100%;
 }
@@ -82,8 +82,9 @@
   position: absolute;
   width: 200px;
   height: 150px;
-  transform-origin: center bottom;
 }
+
+/* Remove any other styles that might be rotating or positioning the hands */
 
 .durac-hand {
   position: relative;
