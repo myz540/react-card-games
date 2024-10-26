@@ -315,10 +315,27 @@ function Durac() {
     </div>
   );
 
+  const restartGame = () => {
+    setGameState({
+      players: [],
+      deck: [],
+      attackSlots: [],
+      primaryAttacker: null,
+      defender: null,
+      currentPlayer: null,
+      gamePhase: "setup",
+      trumpSuit: null,
+      validAttackValues: [],
+    });
+  };
+
   const renderGameInfo = () => (
     <div className="durac-game-info">
       <div className="durac-deck-count">{gameState.deck.length} cards left</div>
       <div className="durac-trump-suit">Trump: {gameState.trumpSuit}</div>
+      <button className="restart-button durac-button" onClick={restartGame}>
+        Restart Game
+      </button>
     </div>
   );
 
@@ -328,24 +345,6 @@ function Durac() {
 
   const renderGameBoard = () => (
     <div className="durac-game-board">
-      <Link
-        to="/"
-        className="back-link"
-        onClick={handleBackClick}
-        style={{
-          position: "absolute",
-          top: "10px",
-          left: "10px",
-          zIndex: 1000,
-          padding: "10px",
-          background: "transparent",
-          border: "1px solid ",
-          cursor: "pointer",
-        }}
-      >
-        Back to Home
-      </Link>
-      {renderGameInfo()}
       <div className="durac-hands-circle">
         {gameState.players.map((player) => (
           <div key={player.id} className="durac-player-hand">
@@ -357,18 +356,29 @@ function Durac() {
       <div className="durac-center-area">
         {renderAttackSlots()}
         {gameState.gamePhase === "defend" && gameState.defender.id === 1 && (
-          <button className="pickup-button" onClick={handlePickUp}>
+          <button className="pickup-button durac-button" onClick={handlePickUp}>
             Pick Up
           </button>
         )}
       </div>
+      {renderGameInfo()}
+      <Link to="/" className="back-link" onClick={handleBackClick}>
+        Back to Home
+      </Link>
     </div>
   );
 
   return (
     <div className="durac-game">
       {gameState.gamePhase === "setup" ? (
-        <button onClick={initializeGame}>Start Game</button>
+        <div className="start-game-wrapper">
+          <button
+            className="start-game-button durac-button"
+            onClick={initializeGame}
+          >
+            Start Game
+          </button>
+        </div>
       ) : (
         renderGameBoard()
       )}

@@ -21,6 +21,57 @@
   text-align: right;
 }
 
+/* New styles for game info content */
+.durac-deck-count,
+.durac-trump-suit {
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #5a3e2b;
+}
+
+/* Common button styles */
+.durac-button {
+  font-family: inherit;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 10rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Start Game button */
+.start-game-button {
+  font-size: 1.6rem;
+  padding: 1.2rem 2.4rem;
+  background-color: #9cad1f;
+  color: #5a3e2b;
+  margin: 20px auto;
+  display: block;
+}
+
+.start-game-button:hover {
+  background-color: #b8cc24;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Restart Game button */
+.restart-button {
+  font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #5a3e2b;
+  color: #fff;
+}
+
+.restart-button:hover {
+  background-color: #4a2e1b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
 .durac-hands-circle {
   position: relative;
   width: 100%;
@@ -89,16 +140,24 @@
   justify-content: space-between;
 }
 
-.durac-deck-count {
-  margin-top: 20px;
-  text-align: center;
+/* Update pickup button to match new style */
+.pickup-button {
+  font-size: 1.4rem;
+  padding: 0.8rem 1.6rem;
+  background-color: #9cad1f;
+  color: #5a3e2b;
+  margin-top: 10px;
 }
 
-.pickup-button {
-  margin-top: 10px;
-  padding: 5px 10px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  cursor: pointer;
+.pickup-button:hover {
+  background-color: #b8cc24;
+  transform: translateY(-2px);
+}
+
+/* New wrapper for start game button */
+.start-game-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
