@@ -1,0 +1,49 @@
+.durac-attack-slots {
+  position: absolute;
+  top: 40%; /* Reduced from 50% to move up slightly */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 5px; /* Reduced from 20px (75% reduction) */
+  padding: 10px; /* Reduced padding to make it more compact */
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+
+.attack-slot {
+  width: 105px;
+  height: 160px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.attack-slot.empty {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.attack-card,
+.defend-card {
+  position: absolute;
+  transition: transform 0.3s ease;
+}
+
+.attack-card {
+  z-index: 1;
+}
+
+.attack-card.sliver {
+  width: 30px; /* Adjust this value to change the width of the sliver */
+  overflow: hidden;
+  left: 10px; /* Adjust this value to position the sliver */
+}
+
+.defend-card {
+  z-index: 2;
+  transform: translateX(15px); /* Adjust this value to offset the defend card */
+}
