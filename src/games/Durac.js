@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Deck from "../components/Deck";
 import Hand from "../components/Hand";
-import Card from "../components/Card";
-import { CARD_MAP, CARD_BACK, shuffle } from "../constants";
+import { CARD_MAP, shuffle } from "../constants";
 import "./Durac.css";
 import AttackSlot from "../components/AttackSlot";
+import { computerPlay } from "../utils/ComputerPlayer";
 
 function Durac() {
   const [gameState, setGameState] = useState({
@@ -23,6 +22,12 @@ function Durac() {
   useEffect(() => {
     initializeGame();
   }, []);
+
+  useEffect(() => {
+    if (gameState.gamePhase !== "setup" && gameState.currentPlayer.id !== 1) {
+      handleComputerTurn();
+    }
+  }, [gameState.currentPlayer, gameState.gamePhase]);
 
   const initializeGame = () => {
     const deck = shuffle(CARD_MAP);
@@ -105,6 +110,16 @@ function Durac() {
   };
 
   const isValidAttack = (card, state) => {
+    if (
+      !state ||
+      !state.attackSlots ||
+      !state.validAttackValues ||
+      !state.defender
+    ) {
+      console.error("Invalid state in isValidAttack:", state);
+      return false;
+    }
+
     if (state.attackSlots.length === 0) {
       return true; // First attack is always valid
     }
@@ -112,6 +127,7 @@ function Durac() {
     return (
       state.validAttackValues.includes(card.value) &&
       state.attackSlots.length < 6 &&
+      state.defender.hand &&
       state.attackSlots.length < state.defender.hand.length
     );
   };
@@ -342,6 +358,27 @@ function Durac() {
 
   const handleBackClick = () => {
     console.log("Back link clicked");
+  };
+
+  const handleComputerTurn = () => {
+    setTimeout(() => {
+      const currentPlayer = gameState.players.find(
+        (p) => p.id === gameState.currentPlayer.id
+      );
+      const cardToPlay = computerPlay(
+        currentPlayer,
+        gameState,
+        (card) => isValidAttack(card, gameState),
+        (attackCard, defendCard) =>
+          canDefend(attackCard, defendCard, gameState.trumpSuit)
+      );
+
+      if (cardToPlay) {
+        handleCardPlay(currentPlayer.id, cardToPlay);
+      } else if (gameState.gamePhase === "defend") {
+        handlePickUp();
+      }
+    }, 3000); // 3000 milliseconds = 3 seconds
   };
 
   return (
